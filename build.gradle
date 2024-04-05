@@ -21,6 +21,11 @@ repositories {
         name = "TheClashFruit's Snapshots"
         url = "https://mvn.theclashfruit.me/snapshots"
     }
+
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
 }
 
 dependencies {
@@ -31,13 +36,19 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modImplementation "me.theclashfruit:wasmer:0.1.0-alpha+mc1.20.4"
+    modImplementation "me.theclashfruit:wasmer:${project.wasmer_version}"
+
+    modImplementation "com.dylibso.chicory:runtime:0.0.9"
+
+    modLocalRuntime("maven.modrinth:modmenu:${project.modmenu_version}")
 }
 
 processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "loader_version", project.loader_version
+    inputs.property "wasmer_version", project.wasmer_version
+
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
