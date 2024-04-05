@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "wasmerapi",
+  "version": "${version}",
+  "name": "Wasmer API",
+  "description": "API for Wasmer.",
+  "authors": [
+    "TheClashFruit"
+  ],
+  "contact": {
+    "repo": "https://github.com/WasmerMC/WasmerAPI"
+  },
+  "license": "MIT",
+  "icon": "assets/wasmerapi/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "me.theclashfruit.wasmerapi.client.WasmerAPIClient"
+    ],
+    "main": [
+      "me.theclashfruit.wasmerapi.WasmerAPI"
+    ]
+  },
+  "mixins": [
+    "wasmerapi.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
