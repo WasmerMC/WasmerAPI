@@ -1,7 +1,6 @@
 package me.theclashfruit.wasmerapi;
 
 import me.theclashfruit.wasmer.api.registry.MethodRegistry;
-import me.theclashfruit.wasmerapi.methods.platform.SetModName;
 import me.theclashfruit.wasmerapi.methods.registry.Register;
 import net.fabricmc.loader.api.entrypoint.PreLaunchEntrypoint;
 
@@ -11,7 +10,6 @@ public class WasmerAPIPreLaunch implements PreLaunchEntrypoint {
     @Override
     public void onPreLaunch() {
         MethodRegistry.register(new Register());
-        MethodRegistry.register(new SetModName());
 
         LOGGER.info("Registered all methods.");
     }
