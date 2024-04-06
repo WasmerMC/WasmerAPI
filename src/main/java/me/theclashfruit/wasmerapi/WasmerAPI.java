@@ -12,6 +12,6 @@ public class WasmerAPI implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        MethodRegistry.register(new Register());
+
     }
 }

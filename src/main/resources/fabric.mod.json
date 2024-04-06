@@ -27,6 +27,9 @@
     ],
     "main": [
       "me.theclashfruit.wasmerapi.WasmerAPI"
+    ],
+    "preLaunch": [
+      "me.theclashfruit.wasmerapi.WasmerAPIPreLaunch"
     ]
   },
   "mixins": [

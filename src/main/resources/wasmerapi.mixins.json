@@ -4,6 +4,7 @@
   "package": "me.theclashfruit.wasmerapi.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ModContainerImplMixin"
   ],
   "client": [
   ],
