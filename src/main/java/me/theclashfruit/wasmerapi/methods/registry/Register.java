@@ -1,11 +1,8 @@
 package me.theclashfruit.wasmerapi.methods.registry;
 
-import com.dylibso.chicory.wasm.types.ValueType;
 import com.google.gson.Gson;
 import me.theclashfruit.wasmer.api.WasmMethod;
 
-import com.dylibso.chicory.runtime.Instance;
-import com.dylibso.chicory.wasm.types.Value;
 import me.theclashfruit.wasmerapi.data.ItemSettings;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -15,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import me.theclashfruit.wasmer.api.wrapper.ValueType;
 
 import java.util.List;
 
@@ -30,22 +28,22 @@ public class Register extends WasmMethod {
     }
 
     @Override
-    public Value[] execute(Instance inst, Value... args) {
-        String[] id = getString(inst, args[1].asInt(), args[2].asInt()).split(":");
+    public Integer[] execute(Integer... args) {
+        String[] id = getString(args[1], args[2]).split(":");
 
-        switch (args[0].asInt()) {
-            case 0 -> Registry.register(Registries.BLOCK, new Identifier(id[0], id[1]), getBlock(inst, args));
-            case 1 -> Registry.register(Registries.ITEM, new Identifier(id[0], id[1]), getItem(inst, args));
-            case 2 -> Registry.register(Registries.ITEM, new Identifier(id[0], id[1]), getBlockItem(inst, args));
+        switch (args[0]) {
+            case 0 -> Registry.register(Registries.BLOCK, new Identifier(id[0], id[1]), getBlock(args));
+            case 1 -> Registry.register(Registries.ITEM, new Identifier(id[0], id[1]), getItem(args));
+            case 2 -> Registry.register(Registries.ITEM, new Identifier(id[0], id[1]), getBlockItem(args));
         }
 
         return null;
     }
 
-    private Item getItem(Instance inst, Value... args) {
-        LOGGER.info(getString(inst, args[3].asInt(), args[4].asInt()));
+    private Item getItem(Integer... args) {
+        LOGGER.info(getString(args[3], args[4]));
 
-        ItemSettings iS = gson.fromJson(getString(inst, args[3].asInt(), args[4].asInt()), ItemSettings.class);
+        ItemSettings iS = gson.fromJson(getString(args[3], args[4]), ItemSettings.class);
 
         FabricItemSettings settings = new FabricItemSettings();
 
@@ -55,16 +53,16 @@ public class Register extends WasmMethod {
         return new Item(settings);
     }
 
-    private BlockItem getBlockItem(Instance inst, Value... args) {
-        LOGGER.info(getString(inst, args[3].asInt(), args[4].asInt()));
+    private BlockItem getBlockItem(Integer... args) {
+        LOGGER.info(getString(args[3], args[4]));
 
-        String[] id = getString(inst, args[1].asInt(), args[2].asInt()).split(":");
+        String[] id = getString(args[1], args[2]).split(":");
 
         return new BlockItem(Registries.BLOCK.get(new Identifier(id[0], id[1])), new FabricItemSettings());
     }
 
-    private Block getBlock(Instance inst, Value... args) {
-        LOGGER.info(getString(inst, args[3].asInt(), args[4].asInt()));
+    private Block getBlock(Integer... args) {
+        LOGGER.info(getString(args[3], args[4]));
 
         return new Block(FabricBlockSettings.create());
     }

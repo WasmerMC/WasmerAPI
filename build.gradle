@@ -38,7 +38,6 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation "me.theclashfruit:wasmer:${project.wasmer_version}"
 
-    modImplementation "com.dylibso.chicory:runtime:0.0.9"
     implementation 'com.google.code.gson:gson:2.10.1'
 
     modLocalRuntime("maven.modrinth:modmenu:${project.modmenu_version}")

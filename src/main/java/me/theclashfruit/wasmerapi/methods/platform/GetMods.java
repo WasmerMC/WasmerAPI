@@ -1,10 +1,8 @@
 package me.theclashfruit.wasmerapi.methods.platform;
 
-import com.dylibso.chicory.runtime.Instance;
-import com.dylibso.chicory.wasm.types.Value;
-import com.dylibso.chicory.wasm.types.ValueType;
 import com.google.gson.Gson;
 import me.theclashfruit.wasmer.api.WasmMethod;
+import me.theclashfruit.wasmer.api.wrapper.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 
@@ -20,21 +18,21 @@ public class GetMods extends WasmMethod {
     }
 
     @Override
-    public Value[] execute(Instance inst, Value... args) {
+    public Integer[] execute(Integer... args) {
         ModContainer[] mods = FabricLoader.getInstance().getAllMods().toArray(ModContainer[]::new);
 
         String json = gson.toJson(mods);
 
         byte[] bytes = json.getBytes();
-        int ptr = inst.memory().grow(bytes.length);
+        int ptr = instance.memory().grow(bytes.length);
 
         for (int i = 0; i < bytes.length; i++) {
-            inst.memory().write(ptr + i, Value.fromFloat(bytes[i]));
+            instance.memory().write(ptr + i, Value.i32(bytes[i]));
         }
 
-        return new Value[] {
-            Value.fromFloat(ptr),
-            Value.fromFloat(bytes.length)
+        return new Integer[] {
+            ptr,
+            bytes.length
         };
     }
 }
